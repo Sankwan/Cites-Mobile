@@ -4,12 +4,11 @@ import 'dart:convert';
 
 import 'package:cites/utils/users.api.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 
 class Scanner extends StatefulWidget {
-  const Scanner({Key? key}) : super(key: key);
+  const Scanner({super.key});
 
   @override
   _ScannerState createState() => _ScannerState();
@@ -42,32 +41,24 @@ class _ScannerState extends State<Scanner> {
                 flex: 5,
                 child: Stack(
                   children: [
-                    QRView(
-                      key: qrKey,
-                      onQRViewCreated: _onQRViewCreated,
-                    ),
+                    QRView(key: qrKey, onQRViewCreated: _onQRViewCreated),
                     Center(
                       child: Container(
                         width: 300,
                         height: 300,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 4,
-                          ),
+                          border: Border.all(color: Colors.green, width: 4),
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
               const Expanded(
                 flex: 1,
-                child: Center(
-                  child: Text('Scan a code'),
-                ),
-              )
+                child: Center(child: Text('Scan a code')),
+              ),
             ],
           ),
         ],
@@ -82,18 +73,21 @@ class _ScannerState extends State<Scanner> {
 
       var code = scanData.code;
       logger.d(code);
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return DisplayPage(data: code as String, email: '',);
-      }));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return DisplayPage(data: code as String, email: '');
+          },
+        ),
+      );
     });
   }
 }
 
-
 //this page for display after scan is done
 
 class DisplayPage extends StatefulWidget {
-  const DisplayPage({Key? key, required this.email, required String data}) : super(key: key);
+  const DisplayPage({super.key, required this.email, required String data});
   final String email;
 
   @override
@@ -160,7 +154,7 @@ class _DisplayPageState extends State<DisplayPage> {
               //   nextScreen(
               //     context,
               //     SlideAnimate(
-              //       ProfilePage(userData: userData!),                    
+              //       ProfilePage(userData: userData!),
               //     ),
               //   );
               // }
@@ -195,5 +189,3 @@ class _DisplayPageState extends State<DisplayPage> {
 //     );
 //   }
 // }
-
-

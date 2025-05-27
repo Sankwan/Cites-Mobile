@@ -13,7 +13,7 @@ import 'package:cites/widgets/formfields.dart';
 import 'package:cites/widgets/pagesnavigator.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -33,46 +33,46 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
     super.dispose();
   }
-//AAAAAAA
-//   Future<Map<String, dynamic>?> fetchSingleUsers({
-//     required BuildContext context,
-//     required String email,
-//     required String password,
-//   }) async {
-//     String url = "http://10.5.17.11/cites/v1/users/login.php?email=$email&password=$password";
-//     // final response = await http.post(Uri.parse(url));
+  //AAAAAAA
+  //   Future<Map<String, dynamic>?> fetchSingleUsers({
+  //     required BuildContext context,
+  //     required String email,
+  //     required String password,
+  //   }) async {
+  //     String url = "http://10.5.17.11/cites/v1/users/login.php?email=$email&password=$password";
+  //     // final response = await http.post(Uri.parse(url));
 
-// print('http://10.5.17.11/cites/v1/users/login.php?email=$email&password=$password $url');
-//     try {
-//       final response = await http.get(
-//         Uri.parse(url),
-//         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//         // body: {
-//         //   'email': email,
-//         //   'password': password,
-//         // },
-//       );
+  // print('http://10.5.17.11/cites/v1/users/login.php?email=$email&password=$password $url');
+  //     try {
+  //       final response = await http.get(
+  //         Uri.parse(url),
+  //         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  //         // body: {
+  //         //   'email': email,
+  //         //   'password': password,
+  //         // },
+  //       );
 
-//       if (response.statusCode == 200) {
-//         var jsonRes = json.decode(response.body);
-//         print('Server response: $jsonRes');
-//         return jsonRes;
-//       } else {
-//         print('Server returned status code: ${response.statusCode}');
-//         return null;
-//       }
-//     } catch (e) {
-//       print('Error fetching user data: $e');
-//       return null;
-//     }
-//   }
+  //       if (response.statusCode == 200) {
+  //         var jsonRes = json.decode(response.body);
+  //         print('Server response: $jsonRes');
+  //         return jsonRes;
+  //       } else {
+  //         print('Server returned status code: ${response.statusCode}');
+  //         return null;
+  //       }
+  //     } catch (e) {
+  //       print('Error fetching user data: $e');
+  //       return null;
+  //     }
+  //   }
 
   Future<Map<String, dynamic>?> fetchSingleUsers({
     required BuildContext context,
     required String email,
     required String password,
   }) async {
-    String baseUrl = "http://10.5.4.40/cites/v1/users/login.php";
+    String baseUrl = "http://192.168.0.128/cites/v1/users/login.php";
     String url = "$baseUrl?email=$email&password=$password";
 
     try {
@@ -121,15 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(height: 30),
-              const Text(
-                'Welcome Back',
-                style: TextStyle(fontSize: 25),
-              ),
+              const Text('Welcome Back', style: TextStyle(fontSize: 25)),
               const SizedBox(height: 5),
-              const Text(
-                'Login to use App',
-                style: TextStyle(fontSize: 18),
-              ),
+              const Text('Login to use App', style: TextStyle(fontSize: 18)),
               const SizedBox(height: 20),
               Column(
                 children: <Widget>[
@@ -148,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     validator: passwordValidator,
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 200),
+                    padding: const EdgeInsets.only(left: 180),
                     child: TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -164,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey,
                           fontSize: 15,
                           fontFamily: 'Montserrat',
-                          decoration: TextDecoration.underline,
+                          // decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
@@ -201,8 +195,11 @@ class _LoginPageState extends State<LoginPage> {
                             prefs.setString("email", email);
                             ScaffoldMessenger.of(context)
                               ..hideCurrentSnackBar()
-                              ..showSnackBar(const SnackBar(
-                                  content: Text('Login successful!')));
+                              ..showSnackBar(
+                                const SnackBar(
+                                  content: Text('Login successful!'),
+                                ),
+                              );
 
                             nextNavRemoveHistory(context, MyHomePage());
                           } else {
@@ -212,12 +209,14 @@ class _LoginPageState extends State<LoginPage> {
                                   false; // Stop the circular progress indicator
                               loginError = true;
                             });
-                            String errorMessage = data?['message'] ??
+                            String errorMessage =
+                                data?['message'] ??
                                 'Login failed, user doesn\'t exist';
                             ScaffoldMessenger.of(context)
                               ..hideCurrentSnackBar()
                               ..showSnackBar(
-                                  SnackBar(content: Text(errorMessage)));
+                                SnackBar(content: Text(errorMessage)),
+                              );
                           }
                         } catch (error) {
                           // Handle network or other errors here
@@ -228,9 +227,13 @@ class _LoginPageState extends State<LoginPage> {
                           });
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
-                            ..showSnackBar(SnackBar(
+                            ..showSnackBar(
+                              SnackBar(
                                 content: Text(
-                                    'An error occurred. Please try again.')));
+                                  'An error occurred. Please try again.',
+                                ),
+                              ),
+                            );
                         }
                       }
                     },
@@ -246,10 +249,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   const Text(
                     'New to CITES?',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(fontSize: 15, color: Colors.black),
                   ),
                   const SizedBox(width: 5.0),
                   InkWell(
@@ -257,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                       nextNav(context, const SignupPage());
                     },
                     child: const Text(
-                      'Register',
+                      'Register Here',
                       style: TextStyle(
                         fontSize: 17,
                         color: Colors.grey,

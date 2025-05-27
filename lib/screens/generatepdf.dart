@@ -305,7 +305,7 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("CITES Document"),
+        title: const Text("CITES Certificate"),
         centerTitle: true,
         
       ),

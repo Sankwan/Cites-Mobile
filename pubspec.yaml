@@ -46,6 +46,7 @@ dependencies:
   mysql1: ^0.20.0
   awesome_snackbar_content: ^0.1.5
   qr_code_scanner_plus: ^2.0.10+1
+  toastification: ^3.0.2
 
 flutter_launcher_icons:
   android: true

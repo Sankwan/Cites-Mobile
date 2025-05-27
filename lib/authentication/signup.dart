@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'package:country_picker/country_picker.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  const SignupPage({super.key});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -41,14 +41,14 @@ class _SignupPageState extends State<SignupPage> {
   Future<Map<String, dynamic>?> sendUserData(
     String fullname,
     String email,
-    String phone_number,
-    String country_code,
+    String phoneNumber,
+    String countryCode,
     String country,
     String password,
     String status,
   ) async {
     // String url = 'http://10.5.17.11/cites/v1/users/insert.php';
-    String url = 'http://10.5.4.40/cites/v1/users/insert.php';
+    String url = 'http://192.168.0.128/cites/v1/users/insert.php';
     print(url);
     try {
       final response = await http.post(
@@ -56,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
         body: {
           'fullname': fullname,
           'email': email,
-          'phone_number': phone_number,
+          'phone_number': phoneNumber,
           'country_code': selectedCountryCode,
           'country': selectedCountryName,
           'password': password,
@@ -82,10 +82,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       backgroundColor: const Color(0xFFffffff),
       body: SingleChildScrollView(
         child: Container(
@@ -103,10 +100,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Text(
-                  'New to Cites?',
-                  style: TextStyle(fontSize: 25),
-                ),
+                const Text('New to Cites?', style: TextStyle(fontSize: 25)),
                 const SizedBox(height: 5),
                 const Text(
                   'Register to use App',
@@ -180,8 +174,8 @@ class _SignupPageState extends State<SignupPage> {
 
                       var fullname = fullnameController.text;
                       var email = emailController.text;
-                      var phone_number = numberController.text;
-                      var country_code = selectedCountryCode;
+                      var phoneNumber = numberController.text;
+                      var countryCode = selectedCountryCode;
                       var country = selectedCountry;
                       var password = lastPasswordController.text;
                       var status = '0';
@@ -189,8 +183,8 @@ class _SignupPageState extends State<SignupPage> {
                       var response = await sendUserData(
                         fullname,
                         email,
-                        phone_number,
-                        country_code,
+                        phoneNumber,
+                        countryCode,
                         country,
                         password,
                         status,
@@ -201,8 +195,11 @@ class _SignupPageState extends State<SignupPage> {
                           response['status']) {
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
-                          ..showSnackBar(const SnackBar(
-                              content: Text('Registration successful!')));
+                          ..showSnackBar(
+                            const SnackBar(
+                              content: Text('Registration successful!'),
+                            ),
+                          );
 
                         setState(() {
                           _isLoading = false;
@@ -222,10 +219,11 @@ class _SignupPageState extends State<SignupPage> {
                       } else {
                         setState(() {
                           _isLoading = false;
-                          _errorMessage = response != null &&
-                                  response.containsKey('message')
-                              ? response['message']
-                              : 'Registration failed';
+                          _errorMessage =
+                              response != null &&
+                                      response.containsKey('message')
+                                  ? response['message']
+                                  : 'Registration failed';
                         });
 
                         Timer(const Duration(seconds: 3), () {
@@ -241,9 +239,7 @@ class _SignupPageState extends State<SignupPage> {
 
                 // Show loading animation if _isLoading is true
                 if (_isLoading)
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  const Center(child: CircularProgressIndicator()),
 
                 // Show error message if _errorMessage is not empty
                 if (_errorMessage.isNotEmpty)

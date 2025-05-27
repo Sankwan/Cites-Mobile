@@ -1,11 +1,10 @@
-import 'package:cites/screens/onboarding_page.dart';
-import 'package:flutter/material.dart';
 import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cites/authentication/signup.dart';
-import 'package:cites/screens/generatepdf.dart';
 import 'package:cites/screens/homepage.dart';
 import 'package:cites/screens/splash_page.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // void main() {
@@ -43,8 +42,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 //   }
 // }
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferences.getInstance();
@@ -62,7 +59,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +77,7 @@ class MyApp extends StatelessWidget {
               builder: BotToastInit(),
               navigatorObservers: [BotToastNavigatorObserver()],
               title: 'Cites',
-              theme: ThemeData(
-                primarySwatch: Colors.green,
-              ),
+              theme: ThemeData(primarySwatch: Colors.green),
               routes: <String, WidgetBuilder>{
                 '/signup': (BuildContext context) => const SignupPage(),
               },

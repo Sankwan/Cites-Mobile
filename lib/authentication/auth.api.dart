@@ -1,21 +1,22 @@
 import 'dart:convert';
-import 'package:cites/screens/homepage.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import '../utils/users.api.dart';
+import 'package:http/http.dart' as http;
 
 //sign up user
 Future<Map> fetchUsers({fullname, email, country, password}) async {
   // String url = "http://fciis2.fcghana.org/cites/v1/users/create.php";
   // String url = "http://cites.fcghana.org/v1/users/create.php";
-  String url = "http://10.5.4.40/cites/v1/users/create.php";
-  final response = await http.post(Uri.parse(url), body: {
-    "fullname": fullname,
-    "email": email,
-    "country": country,
-    "password": password
-  });
+  String url = "http://192.168.0.128/cites/v1/users/create.php";
+  final response = await http.post(
+    Uri.parse(url),
+    body: {
+      "fullname": fullname,
+      "email": email,
+      "country": country,
+      "password": password,
+    },
+  );
   return jsonDecode(response.body);
 }
 
@@ -27,30 +28,31 @@ Future<Map<String, dynamic>?> fetchSingleUsers({
   required String password,
 }) async {
   String url =
-      "http://10.5.4.40/cites/v1/users/login.php?email=madi@gmail.com&password=madI@1234";
+      "http://192.168.0.128/cites/v1/users/login.php?email=madi@gmail.com&password=madI@1234";
   final response = await http.get(Uri.parse(url));
 
   print(
-      'http://10.5.4.40/cites/v1/users/login.php?email=$email&password=$password $url');
-// try{
-//   final response = await http.get(Uri.parse(url));
+    'http://192.168.0.128/cites/v1/users/login.php?email=$email&password=$password $url',
+  );
+  // try{
+  //   final response = await http.get(Uri.parse(url));
 
-//   if (response.statusCode == 200) {
-//     var jsonRes = jsonDecode(response.body);
-//     if (jsonRes['log_status'] == true) {
-//       print('successful fetch of user data');
-//       return jsonRes;
-//     } else if (jsonRes['log_status'] == false) {
-//       print('login failed, user doesn\'t exist');
-//       return jsonRes;
-//     }
-//   } else {
-//     throw Exception('Failed to fetch user data');
-//   }
-// }catch (error) {
-//     print('Error occurred: $error');
-//     throw Exception('Failed to fetch user data: $error');
-//   }
+  //   if (response.statusCode == 200) {
+  //     var jsonRes = jsonDecode(response.body);
+  //     if (jsonRes['log_status'] == true) {
+  //       print('successful fetch of user data');
+  //       return jsonRes;
+  //     } else if (jsonRes['log_status'] == false) {
+  //       print('login failed, user doesn\'t exist');
+  //       return jsonRes;
+  //     }
+  //   } else {
+  //     throw Exception('Failed to fetch user data');
+  //   }
+  // }catch (error) {
+  //     print('Error occurred: $error');
+  //     throw Exception('Failed to fetch user data: $error');
+  //   }
   return null;
 }
 
@@ -91,12 +93,14 @@ Future<Map<String, dynamic>?> fetchSingleUsers({
 
 //using this. it works
 Future<Map<String, dynamic>> retrieveUsers(String email) async {
-  final Uri url = Uri.parse('http://10.5.4.40/cites/v1/users/retrieve.php')
-      .replace(queryParameters: {'email': email});
+  final Uri url = Uri.parse(
+    'http://192.168.0.128/cites/v1/users/retrieve.php',
+  ).replace(queryParameters: {'email': email});
 
-  final response = await http.get(url, headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  });
+  final response = await http.get(
+    url,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  );
 
   if (response.statusCode == 200) {
     final jsonResponse = json.decode(response.body);
@@ -104,7 +108,8 @@ Future<Map<String, dynamic>> retrieveUsers(String email) async {
       return jsonResponse['data'];
     } else {
       throw Exception(
-          'Failed to fetch user details: ${jsonResponse['message']}');
+        'Failed to fetch user details: ${jsonResponse['message']}',
+      );
     }
   } else {
     throw Exception('Failed to fetch user details');
